@@ -2,6 +2,9 @@ import React from 'react';
 import { Menu, X, Sprout } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
+
+
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const location = useLocation();
@@ -40,9 +43,11 @@ const Header = () => {
                 {link.name}
               </Link>
             ))}
+            <Link to ="/signin">
             <button className="ml-8 bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700 transition-colors">
               Sign In
             </button>
+            </Link>
           </div>
 
           <div className="lg:hidden">

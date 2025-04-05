@@ -8,6 +8,7 @@ import PartnersPage from './pages/PartnersPage';
 import AboutUs from './components/AboutUs';
 import ContactUs from './components/ContactUs';
 import ContractFarming from './components/ContractFarming';
+import SignIn from './pages/SignIn';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/signin" element={<SignIn />} />
           <Route path="/farmers" element={<FarmersPage />} />
           <Route path="/customers" element={<CustomersPage />} />
           <Route path="/partners" element={<PartnersPage />} />
