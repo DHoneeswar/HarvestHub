@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PageWrapper from '../components/PageWrapper';
+
 
 const AuthButtons: React.FC = () => {
   return (
+    <PageWrapper>
     <div className="flex space-x-4">
       <Link to="/signin">
         <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
@@ -16,6 +19,7 @@ const AuthButtons: React.FC = () => {
         </button>
       </Link>
     </div>
+    </PageWrapper>
   );
 };
 

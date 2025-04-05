@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import PageWrapper from '../components/PageWrapper';
 
 
-const SignIn: React.FC = () => {
+const SignUp: React.FC = () => {
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -15,25 +15,30 @@ const SignIn: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const savedUser = localStorage.getItem('userAccount');
+    console.log('Form Submitted with:', formData); // 🔍 Debug: check if called
 
-    if (!savedUser) {
-      setError('No user account found. Please sign up first.');
+    if (!formData.username || !formData.password) {
+      setError('All fields are required');
       return;
     }
 
-    const parsedUser = JSON.parse(savedUser);
-    const { username, password } = formData;
+    const user = {
+      username: formData.username,
+      password: formData.password,
+    };
 
-    if (
-      username === parsedUser.username &&
-      password === parsedUser.password
-    ) {
-      localStorage.setItem('userSession', JSON.stringify(parsedUser));
-      navigate('/');
-    } else {
-      setError('Incorrect username or password.');
+    console.log('Saving user to localStorage:', user); // 🔍 Debug
+
+    try {
+        localStorage.setItem('userAccount', JSON.stringify(user));
+        localStorage.setItem('userSession', JSON.stringify(user)); // Also log them in immediately
+        
+      console.log('User saved! ✅'); // 🔍 Confirm saved
+    } catch (err) {
+      console.error('Error saving user:', err); // 🔴 Show error if failed
     }
+
+    navigate('/'); // redirect after successful signup
   };
 
   return (
@@ -43,7 +48,7 @@ const SignIn: React.FC = () => {
         onSubmit={handleSubmit}
         className="bg-white p-8 rounded-lg shadow-md w-full max-w-sm"
       >
-        <h2 className="text-2xl font-bold mb-6 text-green-600">Sign In</h2>
+        <h2 className="text-2xl font-bold mb-6 text-green-600">Sign Up</h2>
 
         {error && <p className="text-red-500 mb-4">{error}</p>}
 
@@ -69,7 +74,7 @@ const SignIn: React.FC = () => {
           type="submit"
           className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
         >
-          Sign In
+          Sign Up
         </button>
       </form>
     </div>
@@ -77,4 +82,4 @@ const SignIn: React.FC = () => {
   );
 };
 
-export default SignIn;
+export default SignUp;

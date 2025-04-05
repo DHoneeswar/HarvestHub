@@ -10,6 +10,8 @@ import SustainabilityChart from '../components/sustainability/SustainabilityChar
 import { products } from '../data/products';
 import { useCart } from '../hooks/useCart';
 import type { FilterOption, SortOption, Product } from '../types/marketplace';
+import PageWrapper from '../components/PageWrapper';
+
 
 const subscriptionPlans = [
   {
@@ -84,6 +86,7 @@ const CustomersPage = () => {
   };
 
   return (
+    <PageWrapper>
     <div className="min-h-screen bg-gray-50">
       <PageHero 
         title="Fresh from Farm to Your Table"
@@ -156,6 +159,7 @@ const CustomersPage = () => {
         )}
       </div>
     </div>
+    </PageWrapper>
   );
 };
 

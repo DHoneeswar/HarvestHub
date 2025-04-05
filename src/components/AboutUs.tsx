@@ -1,8 +1,9 @@
 import React from 'react';
 import { Target, Users, Sprout } from 'lucide-react';
-
+import PageWrapper from '../components/PageWrapper';
 const AboutUs = () => {
   return (
+    <PageWrapper>
     <div className="bg-white py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Mission and Vision */}
@@ -60,6 +61,7 @@ const AboutUs = () => {
         </div>
       </div>
     </div>
+    </PageWrapper>
   );
 };
 
