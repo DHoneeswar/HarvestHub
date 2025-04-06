@@ -1,5 +1,12 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation
+} from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
+
 import Header from './components/Header';
 import HomePage from './pages/HomePage';
 import FarmersPage from './pages/FarmersPage';
@@ -10,29 +17,34 @@ import ContactUs from './components/ContactUs';
 import ContractFarming from './components/ContractFarming';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUP';
-import { AnimatePresence } from 'framer-motion';
 
-function App() {
+function AppContent() {
+  const location = useLocation();
+
   return (
-    <Router>
-      <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white">
+      <Header />
       <AnimatePresence mode="wait">
-        <Header />
-        <Routes>
-        
+        <Routes location={location} key={location.pathname}>
           <Route path="/" element={<HomePage />} />
           <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/farmers" element={<FarmersPage />} />
           <Route path="/customers" element={<CustomersPage />} />
           <Route path="/partners" element={<PartnersPage />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/contract-farming" element={<ContractFarming />} />
-          <Route path="/signup" element={<SignUp />} />
         </Routes>
-        </AnimatePresence>
-      </div>
-      
+      </AnimatePresence>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 }
