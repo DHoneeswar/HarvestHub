@@ -1,59 +1,74 @@
-// src/pages/AICropSuggestor.tsx
-import React, { useState } from "react";
-import { askOpenAI } from "../services/openaiService";
+// src/components/SmartCrop.tsx
+import React, { useState } from 'react';
 
-const AICropSuggestor: React.FC = () => {
-  const [region, setRegion] = useState("");
-  const [month, setMonth] = useState("");
-  const [recommendation, setRecommendation] = useState("");
+const SmartCrop = () => {
+  const [region, setRegion] = useState('');
+  const [month, setMonth] = useState('');
+  const [recommendation, setRecommendation] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleRecommend = async () => {
+    if (!region || !month) return;
     setLoading(true);
-    const prompt = `Based on the region "${region}" and the month "${month}", suggest 3-5 suitable crops that a farmer can grow in India. Provide a short explanation for each.`;
 
-    const result = await askOpenAI(prompt);
-    setRecommendation(result);
-    setLoading(false);
+    try {
+      const prompt = `I am located in ${region} and it's the month of ${month}. Suggest me the best crops to grow.`;
+      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`,
+        },
+        body: JSON.stringify({
+          model: 'openai/gpt-3.5-turbo',
+          messages: [{ role: 'user', content: prompt }],
+        }),
+      });
+
+      const data = await response.json();
+      const reply = data.choices?.[0]?.message?.content || "🌾 Sorry, couldn't get a recommendation.";
+      setRecommendation(reply);
+    } catch (err) {
+      console.error(err);
+      setRecommendation("⚠️ Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="max-w-3xl mx-auto mt-12 px-4 text-center">
-      <h1 className="text-3xl font-bold mb-6 text-green-700">
-        🌾 Smart Crop Recommendations (AI)
-      </h1>
-
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
+    <div className="max-w-xl mx-auto mt-12 bg-white p-6 rounded-lg shadow-lg">
+      <h2 className="text-2xl font-bold text-green-700 mb-4">🌱 Smart Crop Recommendation</h2>
+      <div className="space-y-3">
         <input
           type="text"
-          placeholder="Enter Region (e.g., Tamil Nadu)"
+          className="w-full border px-4 py-2 rounded-md"
+          placeholder="Enter your region"
           value={region}
           onChange={(e) => setRegion(e.target.value)}
-          className="border border-gray-300 rounded-md p-2 w-full sm:w-64"
         />
         <input
           type="text"
-          placeholder="Enter Month (e.g., April)"
+          className="w-full border px-4 py-2 rounded-md"
+          placeholder="Enter current month"
           value={month}
           onChange={(e) => setMonth(e.target.value)}
-          className="border border-gray-300 rounded-md p-2 w-full sm:w-64"
         />
         <button
           onClick={handleRecommend}
           disabled={loading}
-          className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition-colors"
+          className="bg-green-600 w-full text-white px-4 py-2 rounded-md hover:bg-green-700"
         >
-          {loading ? "Thinking..." : "Get Suggestions"}
+          {loading ? 'Loading...' : 'Get Recommendation'}
         </button>
+        {recommendation && (
+          <div className="mt-4 bg-green-50 p-4 rounded-md border border-green-200 text-green-900">
+            {recommendation}
+          </div>
+        )}
       </div>
-
-      {recommendation && (
-        <div className="bg-green-50 border border-green-200 rounded-md p-4 text-left whitespace-pre-wrap">
-          {recommendation}
-        </div>
-      )}
     </div>
   );
 };
 
-export default AICropSuggestor;
+export default SmartCrop;
