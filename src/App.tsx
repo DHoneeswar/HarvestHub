@@ -9,13 +9,17 @@ import AboutUs from './components/AboutUs';
 import ContactUs from './components/ContactUs';
 import ContractFarming from './components/ContractFarming';
 import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUP';
+import { AnimatePresence } from 'framer-motion';
 
 function App() {
   return (
     <Router>
       <div className="min-h-screen bg-white">
+      <AnimatePresence mode="wait">
         <Header />
         <Routes>
+        
           <Route path="/" element={<HomePage />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/farmers" element={<FarmersPage />} />
@@ -24,8 +28,11 @@ function App() {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/contract-farming" element={<ContractFarming />} />
+          <Route path="/signup" element={<SignUp />} />
         </Routes>
+        </AnimatePresence>
       </div>
+      
     </Router>
   );
 }

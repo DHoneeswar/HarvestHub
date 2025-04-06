@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Brain, Sprout, Bug, Droplet } from 'lucide-react';
 
+
 const AISolutions = () => {
   const [activeTab, setActiveTab] = useState('analysis');
 

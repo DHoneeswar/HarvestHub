@@ -7,6 +7,8 @@ import ResourceMarketplace from '../components/farmers/ResourceMarketplace';
 import KnowledgeHub from '../components/farmers/KnowledgeHub';
 import FinancialManagement from '../components/farmers/FinancialManagement';
 import AISolutions from '../components/farmers/AISolutions';
+import PageWrapper from '../components/PageWrapper';
+
 
 const FarmersPage = () => {
   const [activeSection, setActiveSection] = useState('dashboard');
@@ -37,6 +39,7 @@ const FarmersPage = () => {
   };
 
   return (
+    <PageWrapper>
     <div className="min-h-screen bg-gray-50">
       <PageHero 
         title="Empowering Farmers"
@@ -71,6 +74,7 @@ const FarmersPage = () => {
         </div>
       </div>
     </div>
+    </PageWrapper>
   );
 };
 

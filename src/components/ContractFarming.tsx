@@ -1,8 +1,11 @@
 import React from 'react';
 import { Handshake, TrendingUp, Users } from 'lucide-react';
+import PageWrapper from '../components/PageWrapper';
+
 
 const ContractFarming = () => {
   return (
+    <PageWrapper>
     <div className="bg-white py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
@@ -61,6 +64,7 @@ const ContractFarming = () => {
         </div>
       </div>
     </div>
+    </PageWrapper>
   );
 };
 

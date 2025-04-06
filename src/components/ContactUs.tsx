@@ -1,8 +1,11 @@
 import React from 'react';
 import { Phone, Mail, MapPin } from 'lucide-react';
+import PageWrapper from '../components/PageWrapper';
+
 
 const ContactUs = () => {
   return (
+    <PageWrapper>
     <div className="bg-white py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -33,6 +36,7 @@ const ContactUs = () => {
         </div>
       </div>
     </div>
+    </PageWrapper>
   );
 };
 
