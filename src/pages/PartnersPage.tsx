@@ -39,7 +39,7 @@ const features = [
 
 const PartnersPage = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
       <PageHero 
         title="Supporting Agricultural Growth"
         description="Partner with farmers and drive innovation in agriculture"
@@ -47,7 +47,7 @@ const PartnersPage = () => {
       />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <Link to="/" className="inline-flex items-center text-gray-600 hover:text-gray-700 mb-8">
+        <Link to="/" className="inline-flex items-center text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300 mb-8 transition-colors duration-300">
           <ArrowLeft className="h-5 w-5 mr-2" />
           Back to Home
         </Link>

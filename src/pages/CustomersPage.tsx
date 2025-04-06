@@ -44,7 +44,6 @@ const subscriptionPlans = [
   },
 ];
 
-// ✅ Page transition animation
 const pageVariants = {
   initial: { opacity: 0, y: 20 },
   animate: {
@@ -114,7 +113,7 @@ const CustomersPage = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {filteredAndSortedProducts.map((product) => (
                     <StaggerItem key={product.id}>
-                      <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                      <div className="bg-white dark:bg-[#2a2a2a] text-gray-900 dark:text-gray-100 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
                         <div className="h-48 overflow-hidden relative">
                           <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
                           {product.isOrganic && (
@@ -130,15 +129,15 @@ const CustomersPage = () => {
                         </div>
                         <div className="p-4">
                           <div className="flex justify-between items-start">
-                            <h3 className="text-lg font-medium text-gray-900">{product.name}</h3>
+                            <h3 className="text-lg font-medium">{product.name}</h3>
                             <div className="flex items-center">
                               <span className="text-yellow-400">★</span>
-                              <span className="ml-1 text-gray-600">{product.rating}</span>
+                              <span className="ml-1 text-gray-600 dark:text-gray-300">{product.rating}</span>
                             </div>
                           </div>
-                          <p className="text-sm text-gray-500 mt-1">{product.category}</p>
+                          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{product.category}</p>
                           <div className="flex justify-between items-center mt-4">
-                            <span className="text-lg font-bold text-orange-600">₹{product.price}/{product.unit}</span>
+                            <span className="text-lg font-bold text-orange-600 dark:text-orange-400">₹{product.price}/{product.unit}</span>
                             <button
                               onClick={() => handleAddToCart(product)}
                               className="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 rounded-full text-sm transition-colors duration-300"
@@ -191,7 +190,7 @@ const CustomersPage = () => {
   return (
     <PageWrapper>
       <motion.div
-        className="min-h-screen bg-gray-50"
+        className="min-h-screen bg-gray-50 dark:bg-[#1a1a1a] text-gray-900 dark:text-gray-100 transition-colors duration-300"
         variants={pageVariants}
         initial="initial"
         animate="animate"
@@ -209,7 +208,10 @@ const CustomersPage = () => {
             animate={{ opacity: 1, y: 0 }}
             className="flex justify-between items-center mb-8"
           >
-            <Link to="/" className="inline-flex items-center text-orange-600 hover:text-orange-700 transition-colors duration-200">
+            <Link
+              to="/"
+              className="inline-flex items-center text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 transition-colors duration-200"
+            >
               <ArrowLeft className="h-5 w-5 mr-2" />
               Back to Home
             </Link>
@@ -238,7 +240,7 @@ const CustomersPage = () => {
                 className={`px-6 py-2 rounded-full capitalize transition-colors duration-300 ${
                   activeSection === section
                     ? 'bg-orange-500 text-white'
-                    : 'bg-white text-gray-600 hover:bg-orange-50'
+                    : 'bg-white dark:bg-[#2a2a2a] text-gray-600 dark:text-gray-200 hover:bg-orange-50 dark:hover:bg-orange-600'
                 }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

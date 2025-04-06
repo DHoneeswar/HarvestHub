@@ -10,7 +10,7 @@ const Home: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const userData = localStorage.getItem('userSession'); // uses correct key
+    const userData = localStorage.getItem('userSession');
     try {
       const user = userData ? JSON.parse(userData) : null;
       if (user && user.username) {
@@ -26,19 +26,19 @@ const Home: React.FC = () => {
 
   return (
     <PageWrapper>
-    <div className="min-h-screen bg-white">
-      <Hero />
-      <Features />
-      <UserGroups />
-      {/* Show HeroSection only when not logged in */}
-      {!isLoggedIn && <HeroSection />}
+      {/* ✅ Added dark mode, text color and transition support */}
+      <div className="min-h-screen bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
+        <Hero />
+        <Features />
+        <UserGroups />
 
-      {/* Show Why Choose HarvestHub always */}
-      <BenefitsSection />
-    </div>
+        {/* Only show when not logged in */}
+        {!isLoggedIn && <HeroSection />}
+
+        {/* Always visible */}
+        <BenefitsSection />
+      </div>
     </PageWrapper>
-    
-
   );
 };
 

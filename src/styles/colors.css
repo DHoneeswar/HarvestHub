@@ -1,0 +1,69 @@
+:root {
+    --primary-green: #436b36;
+    --secondary-green: #67914e;
+    --light-green: #a0c28c;
+    --earthy-brown: #8b5a2b;
+    --light-brown: #d2b48c;
+    --cream: #f5f5dc;
+    --dark-text: #333333;
+    --light-text: #ffffff;
+    --success: #4caf50;
+    --warning: #ff9800;
+    --danger: #f44336;
+  }
+  
+  /* Apply these colors to main elements */
+  body {
+    background-color: var(--cream);
+    color: var(--dark-text);
+  }
+  
+  .navbar {
+    background-color: var(--primary-green);
+    color: var(--light-text);
+  }
+  
+  .btn-primary {
+    background-color: var(--primary-green);
+    border-color: var(--primary-green);
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--secondary-green);
+    border-color: var(--secondary-green);
+  }
+  
+  .btn-secondary {
+    background-color: var(--earthy-brown);
+    border-color: var(--earthy-brown);
+  }
+  
+  .card {
+    border-color: var(--light-green);
+  }
+  
+  .card-header {
+    background-color: var(--light-green);
+    color: var(--dark-text);
+  }
+  
+  footer {
+    background-color: var(--primary-green);
+    color: var(--light-text);
+  }
+  
+  /* Success/warning/error message styling */
+  .alert-success {
+    background-color: var(--success);
+    color: var(--light-text);
+  }
+  
+  .alert-warning {
+    background-color: var(--warning);
+    color: var(--dark-text);
+  }
+  
+  .alert-danger {
+    background-color: var(--danger);
+    color: var(--light-text);
+  }

@@ -30,9 +30,9 @@ const BenefitsSection = () => {
   ];
 
   return (
-    <section className="py-16 px-6 bg-white">
+    <section className="py-16 px-6 bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-green-700 mb-8">
+        <h2 className="text-3xl md:text-4xl font-extrabold text-green-700 dark:text-green-400 mb-8">
           Why Choose HarvestHub?
         </h2>
 
@@ -45,11 +45,11 @@ const BenefitsSection = () => {
               whileInView="visible"
               viewport={{ once: true }}
               variants={cardVariants}
-              className="bg-green-50 hover:bg-green-100 p-6 rounded-2xl shadow-lg transition-colors duration-300"
+              className="bg-green-50 dark:bg-gray-800 hover:bg-green-100 dark:hover:bg-gray-700 p-6 rounded-2xl shadow-lg transition-colors duration-300"
             >
               <div className="mb-4 flex justify-center">{benefit.icon}</div>
-              <h3 className="text-xl font-bold text-green-800 mb-2">{benefit.title}</h3>
-              <p className="text-gray-600">{benefit.description}</p>
+              <h3 className="text-xl font-bold text-green-800 dark:text-green-300 mb-2">{benefit.title}</h3>
+              <p className="text-gray-600 dark:text-gray-300">{benefit.description}</p>
             </motion.div>
           ))}
         </div>
@@ -59,7 +59,7 @@ const BenefitsSection = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <button className="bg-green-600 text-white px-6 py-3 rounded-full text-lg font-semibold shadow hover:bg-green-700 transition">
+          <button className="bg-green-600 text-white px-6 py-3 rounded-full text-lg font-semibold shadow hover:bg-green-700 dark:hover:bg-green-500 transition">
             Explore More
           </button>
         </motion.div>

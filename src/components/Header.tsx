@@ -1,5 +1,6 @@
 import React from 'react';
 import { Menu, X, Sprout } from 'lucide-react';
+import DarkModeToggle from './DarkModeToggle';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Header = () => {
@@ -11,8 +12,8 @@ const Header = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('userSession');
-    navigate('/'); // redirect to home
-    window.location.reload(); // optional, to refresh the UI
+    navigate('/');
+    window.location.reload();
   };
 
   const navigation = [
@@ -25,14 +26,14 @@ const Header = () => {
   ];
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
+    <header className="bg-white dark:bg-gray-900 shadow-sm sticky top-0 z-50">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
         <div className="w-full py-6 flex items-center justify-between border-b border-green-500 lg:border-none">
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center space-x-2">
-              <Sprout className="h-8 w-8 text-green-600" />
-              <span className="text-2xl font-bold text-green-600">HarvestHUB</span>
+              <Sprout className="h-8 w-8 text-green-600 dark:text-green-400" />
+              <span className="text-2xl font-bold text-green-600 dark:text-green-400">HarvestHUB</span>
             </Link>
           </div>
 
@@ -44,17 +45,21 @@ const Header = () => {
                 to={link.href}
                 className={`text-base font-medium ${
                   location.pathname === link.href
-                    ? 'text-green-600'
-                    : 'text-gray-700 hover:text-green-600'
+                    ? 'text-green-600 dark:text-green-400'
+                    : 'text-gray-700 dark:text-gray-200 hover:text-green-600 dark:hover:text-green-400'
                 } transition-colors`}
               >
                 {link.name}
               </Link>
             ))}
 
+            {/* Dark Mode Toggle */}
+            <DarkModeToggle />
+
+            {/* Auth Section */}
             {userSession ? (
               <>
-                <span className="ml-6 text-green-700 font-semibold">
+                <span className="ml-4 text-green-700 dark:text-green-300 font-semibold">
                   Welcome, {userSession.username}
                 </span>
                 <button
@@ -84,7 +89,7 @@ const Header = () => {
           <div className="lg:hidden">
             <button
               type="button"
-              className="text-gray-700 hover:text-green-600"
+              className="text-gray-700 dark:text-gray-200 hover:text-green-600 dark:hover:text-green-400"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -94,15 +99,15 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden py-4">
+          <div className="lg:hidden py-4 space-y-2">
             {navigation.map((link) => (
               <Link
                 key={link.name}
                 to={link.href}
                 className={`block py-2 text-base font-medium ${
                   location.pathname === link.href
-                    ? 'text-green-600'
-                    : 'text-gray-700 hover:text-green-600'
+                    ? 'text-green-600 dark:text-green-400'
+                    : 'text-gray-700 dark:text-gray-200 hover:text-green-600 dark:hover:text-green-400'
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -110,9 +115,14 @@ const Header = () => {
               </Link>
             ))}
 
+            {/* Dark Mode Toggle in mobile */}
+            <div className="pt-2">
+              <DarkModeToggle />
+            </div>
+
             {userSession ? (
               <>
-                <p className="mt-4 text-green-700 font-semibold">
+                <p className="mt-4 text-green-700 dark:text-green-300 font-semibold">
                   Welcome, {userSession.username}
                 </p>
                 <button
