@@ -1,93 +1,56 @@
 import React, { useState } from "react";
-import { Send } from "lucide-react";
+import { askOpenAI } from "../services/openaiService"; // correct path
 
-const mockResponses: Record<string, string> = {
-  hello: "Hi there! How can I help you with your crops today?",
-  weather: "Today’s weather is sunny with mild humidity — great for fieldwork!",
-  crops: "For your region this month, we recommend maize, tomatoes, and groundnuts.",
-  irrigation: "Drip irrigation is ideal during dry spells. Want more options?",
-  bye: "Goodbye! Wishing you a bountiful harvest!",
-};
-
-type Message = {
-  text: string;
-  sender: "user" | "bot";
-};
-
-const CropChatAssistant: React.FC = () => {
+const AIAssistant = () => {
+  const [messages, setMessages] = useState<{ text: string; sender: string }[]>([]);
   const [input, setInput] = useState("");
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      text: "Hi! I’m your AI Crop Assistant 🌱. Ask me anything about your crops!",
-      sender: "bot",
-    },
-  ]);
+  const [loading, setLoading] = useState(false);
 
-  const handleSendMessage = () => {
+  const sendMessage = async () => {
     if (!input.trim()) return;
-
-    const userMessage = input.trim().toLowerCase();
-    const botReply =
-      mockResponses[userMessage] ||
-      "I'm still learning. Please try a different question.";
-
-    setMessages((prev) => [
-      ...prev,
-      { text: input.trim(), sender: "user" },
-      { text: botReply, sender: "bot" },
-    ]);
+  
+    setMessages((prev) => [...prev, { text: input, sender: "user" }]);
     setInput("");
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") handleSendMessage();
+  
+    const reply = await askOpenAI(input); // <- Calls OpenAI
+    setMessages((prev) => [...prev, { text: reply, sender: "bot" }]);
   };
 
   return (
-    <div className="max-w-xl mx-auto bg-white shadow-xl rounded-2xl overflow-hidden border border-green-300">
-      <div className="bg-green-600 text-white px-4 py-3 text-lg font-semibold">
-        🌾 AI Crop Chat Assistant
-      </div>
-
-      <div className="p-4 h-80 overflow-y-auto space-y-3 bg-gray-50">
+    <div className="max-w-xl mx-auto mt-10 p-4 border rounded shadow">
+      <h2 className="text-xl font-bold mb-4">🌾 AI Crop Assistant</h2>
+      <div className="h-64 overflow-y-auto border p-2 rounded mb-4 bg-gray-50">
         {messages.map((msg, idx) => (
           <div
             key={idx}
-            className={`flex ${
-              msg.sender === "user" ? "justify-end" : "justify-start"
+            className={`mb-2 text-sm ${
+              msg.sender === "user" ? "text-right text-green-700" : "text-left text-gray-800"
             }`}
           >
-            <div
-              className={`px-4 py-2 rounded-lg max-w-[70%] ${
-                msg.sender === "user"
-                  ? "bg-green-100 text-right"
-                  : "bg-white border"
-              }`}
-            >
+            <span className="block px-3 py-2 bg-white rounded shadow inline-block">
               {msg.text}
-            </div>
+            </span>
           </div>
         ))}
+        {loading && <p className="text-gray-500 text-sm">Thinking...</p>}
       </div>
-
-      <div className="flex border-t border-gray-300 p-3 bg-white">
+      <div className="flex gap-2">
         <input
-          className="flex-grow px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-green-400"
-          type="text"
-          placeholder="Ask me about crop tips, weather, irrigation..."
+          className="flex-1 border px-4 py-2 rounded"
+          placeholder="Ask something..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyPress}
+          onKeyDown={(e) => e.key === "Enter" && sendMessage()}
         />
         <button
-          onClick={handleSendMessage}
-          className="ml-2 bg-green-600 hover:bg-green-700 text-white p-2 rounded-full transition"
+          onClick={sendMessage}
+          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
         >
-          <Send className="h-5 w-5" />
+          Send
         </button>
       </div>
     </div>
   );
 };
 
-export default CropChatAssistant;
+export default AIAssistant;
