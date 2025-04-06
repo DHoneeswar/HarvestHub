@@ -21,6 +21,7 @@ const Header = () => {
     { name: 'Farmers', href: '/farmers' },
     { name: 'Customers', href: '/customers' },
     { name: 'Agro-Allied Partners', href: '/partners' },
+    { name: 'Crop AI', href: '/recommendations' },
     { name: 'Contact Us', href: '/contact' },
   ];
 

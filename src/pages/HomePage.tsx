@@ -1,44 +1,43 @@
 import React, { useEffect, useState } from 'react';
 import HeroSection from '../components/HeroSection';
 import BenefitsSection from '../components/BenefitSection';
+import FeaturesSection from '../components/Features';
+import UserGroupSection from '../components/UserGroups';
 import Hero from '../components/Hero';
-import Features from '../components/Features';
-import UserGroups from '../components/UserGroups';
-import PageWrapper from '../components/PageWrapper';
+import ChatAI from '../pages/Chat';
 
 const Home: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const userData = localStorage.getItem('userSession'); // uses correct key
+    const userData = localStorage.getItem('userSession');
     try {
       const user = userData ? JSON.parse(userData) : null;
-      if (user && user.username) {
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
+      setIsLoggedIn(!!(user && user.username));
     } catch (error) {
       console.error('Invalid userSession in localStorage', error);
       setIsLoggedIn(false);
     }
+    
   }, []);
 
   return (
-    <PageWrapper>
     <div className="min-h-screen bg-white">
-      <Hero />
-      <Features />
-      <UserGroups />
-      {/* Show HeroSection only when not logged in */}
-      {!isLoggedIn && <HeroSection />}
-
-      {/* Show Why Choose HarvestHub always */}
-      <BenefitsSection />
+      {!isLoggedIn ? (
+        <>
+          
+          <HeroSection />
+          <BenefitsSection />
+        </>
+      ) : (
+        <>
+          <Hero />
+          <FeaturesSection />
+          <UserGroupSection />
+          <ChatAI />
+        </>
+      )}
     </div>
-    </PageWrapper>
-    
-
   );
 };
 
