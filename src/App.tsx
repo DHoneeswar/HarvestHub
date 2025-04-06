@@ -11,6 +11,7 @@ import ContractFarming from './components/ContractFarming';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUP';
 import { AnimatePresence } from 'framer-motion';
+import SmartCropRecommendation from './pages/SmartCropRecommendations';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/contract-farming" element={<ContractFarming />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/recommendations" element={<SmartCropRecommendation />} />
         </Routes>
         </AnimatePresence>
       </div>
